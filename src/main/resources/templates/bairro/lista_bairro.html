@@ -19,29 +19,31 @@
 	                <span>Novo Bairro</span>
 	            </a>
 	        </nav>
-	<!--  
 	        <div class="container" id="listagem">
+	        
+	        <div th:replace="fragments/alert"></div>
+	        
 	            <div class="table-responsive">
 	                <table class="table table-striped table-hover table-sm">
 	                    <thead>
 	                    <tr>
 	                        <th>#</th>
-	                        <th>Código</th>
-	                        <th>Marca</th>
-	                        <th>Modelo</th>
-	                        <th>Ano</th> 
-	                        <th>Tipo Combustível</th>       
+	                        <th>Bairro</th> 
+	                        <th>Ações</th>    
 	                    </tr>
 	                    </thead>
 	                    <tbody>
-	                    <tr th:each="categoria : ${categorias}">
-	                        <td th:text="${categoria.id}">1</td>
-	                        <td th:text="${categoria.categoria}">Automóvel</td>	                        
+	                    <tr th:each="bairro : ${bairros}">
+	                        <td th:text="${bairro.id}"></td>
+	                        <td th:text="${bairro.nome}"></td>	                        
 	                        <td colspan="2">
-	                            <a class="btn btn-info btn-sm" th:href="@{/veiculo/editar/{id} (id=${categoria.id})}" role="button">
+	                            <a class="btn btn-info btn-sm" th:href="@{/bairro/editar/{id} (id=${bairro.id})}" role="button">
 	                                <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 	                            </a>
-	                            <button type="button" class="btn btn-danger btn-sm" >
+	                            <button
+	                            th:id="${'btn_bairro/excluir/'+ bairro.id}"
+	                             type="button" class="btn btn-danger btn-sm"
+	                             data-toggle="modal" data-target="#myModal" >
 	                                <span class="oi oi-circle-x" title="Exclusão desabilitada" aria-hidden="true"></span>
 	                            </button>
 	                        </td>
@@ -49,8 +51,8 @@
 	                    </tbody>
 	                </table>
 	            </div>
-	        </div>
--->	        
+	        </div>  
+	        <div th:replace="fragments/modal :: modal"></div>      
 	    </section>
 </body>
 </html>
