@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+
+	<section class="layout-content" layout:fragment="conteudo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span>Cadastrar Agendamento</span></li>
+				</ul>
+			</div>
+			<a class="btn btn-primary btn-md" href="/bairro/listar"
+				role="button"> <span class="oi oi-spreadsheet" title="Cadastro"
+				aria-hidden="true"></span> <span>Listar Agendamentos</span>
+			</a>
+		</nav>
+
+		<div class="container" id="cadastro">
+		
+			<div th:replace="fragments/alert"></div>
+			
+			<form method="POST" th:object="${agendamento}"
+				th:action="${agendamento.id == null} ? @{/agendamento/salvar} : @{/agendamento/editar}">
+				<div class="form-row">
+				<div class="form-group col-md-4">
+						<label for="tipoColeta">Tipo de Coleta</label> 
+						 <ul>
+            <div><input type="radio" th:field="*{tipoColeta}" th:value="${tipoColeta}" checked="checked" />Coleta Comum</div>
+  <div><input type="radio" th:field="*{tipoColeta}" th:value="${tipoColeta}" />Coleta Seletiva</div>
+						<select id="tipoColeta" class="form-control" th:field="*{tipoColeta}">
+    <option value="">Selecione o tipo de Coleta</option>
+     <option th:each="pais : ${paises}" th:value="${pais.id}" th:text="${tipoColet.descricao}" selected="selected"></option>-->
+    </select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="bairro">Bairro</label> 
+						<select id="bairro" class="form-control" th:field="*{bairro}">
+    <option value="">Selecione o Bairro</option>
+    <!--  <option th:each="pais : ${paises}" th:value="${pais.id}" th:text="${tipoColet.descricao}" selected="selected"></option>-->
+    </select>
+					</div>
+					<div class="form-group col-md-3">
+						<label for="diaSemana">Dia da Semana</label> 
+						
+						<select id="diaSemana" class="form-control" th:field="*{diaSemana}">
+    <option value="">Selecione o dia da semana</option>
+    <!--  <option th:each="pais : ${paises}" th:value="${pais.id}" th:text="${tipoColet.descricao}" selected="selected"></option>-->
+    </select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="horario">Horário de Coleta</label> 
+						
+						<input type="text" class="form-control" id="horario"
+							placeholder="Horário de coleta" autofocus="autofocus"
+							th:field="*{horario}" />
+					</div>
+					
+				</div>
+				<input type="hidden" id="id" th:field="*{id}" />
+				<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+			</form>
+		</div>
+	</section>
+</body>
+</html>

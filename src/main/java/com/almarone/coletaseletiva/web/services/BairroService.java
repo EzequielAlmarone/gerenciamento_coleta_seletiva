@@ -11,4 +11,10 @@ public interface BairroService {
 	void delete(Long id);
 	Bairro findById(Long id);
 	List<Bairro> findAll();
+	
+	
+	// Regras de Negocio
+	
+	void bairroDuplicado(String nomeBairro);
+	
 }
