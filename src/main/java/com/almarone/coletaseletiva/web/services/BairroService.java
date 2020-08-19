@@ -1,20 +1,22 @@
 package com.almarone.coletaseletiva.web.services;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.almarone.coletaseletiva.api.dto.BairroDTO;
 import com.almarone.coletaseletiva.web.domain.Bairro;
 
 
 public interface BairroService {
-	void save(Bairro bairro);
-	void update(Bairro bairro);
+	Bairro save(Bairro bairro);
+	Bairro update(Bairro bairro);
 	void delete(Long id);
-	Bairro findById(Long id);
-	List<Bairro> findAll();
+	Optional<BairroDTO> findById(Long id);
+	List<BairroDTO> findAll();
 	
 	
 	// Regras de Negocio
 	
-	void bairroDuplicado(String nomeBairro);
+	//void bairroDuplicado(String nomeBairro);
 	
 }

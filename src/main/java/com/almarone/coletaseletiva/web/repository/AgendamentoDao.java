@@ -1,16 +1,10 @@
 package com.almarone.coletaseletiva.web.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.almarone.coletaseletiva.web.domain.Agendamento;
 
 
-public interface AgendamentoDao {
+public interface AgendamentoDao extends JpaRepository<Agendamento, Long>{
 	
-	Agendamento save(Agendamento bairro);
-	void update(Agendamento bairro);
-	void delete(Long id);
-	Agendamento findById(Long id);
-	List<Agendamento> findAll();
-
 }
