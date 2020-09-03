@@ -7,7 +7,7 @@ import com.almarone.coletaseletiva.api.dto.BairroDTO;
 import com.almarone.coletaseletiva.web.domain.Bairro;
 
 
-public interface BairroService {
+public interface BairroService{
 	Bairro save(Bairro bairro);
 	Bairro update(Bairro bairro);
 	void delete(Long id);

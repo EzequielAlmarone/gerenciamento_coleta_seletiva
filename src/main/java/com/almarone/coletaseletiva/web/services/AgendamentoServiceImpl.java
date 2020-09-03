@@ -10,38 +10,63 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.almarone.coletaseletiva.api.dto.AgendamentoDTO;
 import com.almarone.coletaseletiva.web.domain.Agendamento;
-import com.almarone.coletaseletiva.web.repository.AgendamentoDao;
+import com.almarone.coletaseletiva.web.domain.Bairro;
+import com.almarone.coletaseletiva.web.domain.exception.RegraDeNegocioException;
+import com.almarone.coletaseletiva.web.repository.AgendamentoRepository;
+import com.almarone.coletaseletiva.web.repository.BairroRepository;
 
 
 @Service @Transactional(readOnly = false)
 public class AgendamentoServiceImpl implements AgendamentoService {
 	@Autowired
-	private AgendamentoDao repository;
+	private AgendamentoRepository agendamentoRepository;
+	
+	@Autowired
+	private BairroRepository bairroRepository;
+	
 
 	@Override
-	public Agendamento save(Agendamento agendamento) {
-		return repository.save(agendamento);
-		
+	public AgendamentoDTO salvar(Agendamento agendamento) {
+		// verificar se tem agendamento salvo com as mesma informações
+		Optional<Agendamento> agendamentoComparado = agendamentoRepository.compararAgendamento(
+				agendamento.getBairro(), agendamento.getDiaSemana(), agendamento.getTipoColeta());
+		if(!agendamentoComparado.isPresent()) {
+			return AgendamentoDTO.create(agendamentoRepository.save(agendamento));
+		}else {
+			throw new RegraDeNegocioException("Essa coleta já foi agendada para esse dia nesse bairro, tente a opção de atualizar.");
+		}
 	}
 
 	@Override
-	public Agendamento update(Agendamento agendamento) {
-		return repository.save(agendamento);
-		
+	public AgendamentoDTO atualizar(Agendamento agendamento) {
+		return AgendamentoDTO.create(agendamentoRepository.save(agendamento));
+	}
+	
+	@Override
+	public void excluir(Long id) {
+		agendamentoRepository.deleteById(id);
 	}
 
-	@Override
-	public void delete(Long id) {
-		repository.deleteById(id);	
+	@Override 
+	public Optional<AgendamentoDTO> listarAgendamentoPorId(Long id) {
+		return agendamentoRepository.findById(id).map(AgendamentoDTO::create);
 	}
 
 	@Override @Transactional(readOnly = true)
-	public Optional<AgendamentoDTO> findById(Long id) {
-		return repository.findById(id).map(AgendamentoDTO::create);
+	public List<AgendamentoDTO> listarAgendamentos() {
+		return agendamentoRepository.findAll().stream()
+				.map(AgendamentoDTO::create)
+				.collect(Collectors.toList());
 	}
 
 	@Override @Transactional(readOnly = true)
-	public List<AgendamentoDTO> findAll() {
-		return repository.findAll().stream().map(AgendamentoDTO::create).collect(Collectors.toList());
+	public List<AgendamentoDTO> listarAgendamentosPorBairro(Long idBairro) {
+		Bairro bairro = bairroRepository
+				.findById(idBairro)
+				.orElseThrow(() -> new RegraDeNegocioException("Bairro não encontrado"));
+		return agendamentoRepository.findByBairro(bairro)
+				.stream().map(AgendamentoDTO::create).collect(Collectors.toList());
 	}
+
+	
 }

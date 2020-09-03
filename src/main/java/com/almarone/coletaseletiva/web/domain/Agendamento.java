@@ -1,68 +1,32 @@
 package com.almarone.coletaseletiva.web.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.almarone.coletaseletiva.web.domain.enums.DiaSemana;
 import com.almarone.coletaseletiva.web.domain.enums.TipoColeta;
 
+import lombok.Data;
+
 @Entity
-@SuppressWarnings("serial")
-public class Agendamento extends AbstractEntity<Long> {
-	@Column(nullable = false, length = 20)
+@Data
+public class Agendamento {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String horario;
-	@Column(name = "dia_semana", nullable = false)
-	private Integer diaSemana;
-	@Column(name = "tipo_coleta", nullable = false)
-	private Integer tipoColeta;
-	
+	@Enumerated(value = EnumType.STRING)
+	private DiaSemana diaSemana;
+	@Enumerated(value = EnumType.STRING)
+	private TipoColeta tipoColeta;
 	@ManyToOne
-	@JoinColumn(name = "bairro_id")
+	@JoinColumn(name = "fk_bairro_id")
 	private Bairro bairro;
-
-
-	public String getHorario() {
-		return horario;
-	}
-
-	public void setHorario(String horario) {
-		this.horario = horario;
-	}
-
-	public DiaSemana getDiaSemana() {		
-		return DiaSemana.toEnum(this.diaSemana);
-	}
-
-	public void setDiaSemana(Integer diaSemana) {
-		this.diaSemana = diaSemana;
-	}
-
-	public TipoColeta getTipoColeta() {
-		return TipoColeta.toEnum(this.tipoColeta);
-	}
-
-	public void setTipoColeta(Integer tipoColeta) {
-		this.tipoColeta = tipoColeta;
-	}
-
-	public Bairro getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(Bairro bairro) {
-		this.bairro = bairro;
-	}
-	
-	
-	
-
-	
-	
-	
-	
-	
-
 
 }

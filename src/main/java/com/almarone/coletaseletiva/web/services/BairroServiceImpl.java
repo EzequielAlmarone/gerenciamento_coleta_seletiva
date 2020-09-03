@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.almarone.coletaseletiva.api.dto.BairroDTO;
 import com.almarone.coletaseletiva.web.domain.Bairro;
-import com.almarone.coletaseletiva.web.repository.BairroDao;
+import com.almarone.coletaseletiva.web.repository.BairroRepository;
 
 
 @Service @Transactional(readOnly = false)
 public class BairroServiceImpl implements BairroService {
 	@Autowired
-	private BairroDao repository;
+	private BairroRepository repository;
 
 	@Override
 	public Bairro save(Bairro bairro) {

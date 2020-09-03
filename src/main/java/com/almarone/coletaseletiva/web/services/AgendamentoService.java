@@ -8,9 +8,10 @@ import com.almarone.coletaseletiva.web.domain.Agendamento;
 
 
 public interface AgendamentoService {
-	Agendamento save(Agendamento agendamento);
-	Agendamento update(Agendamento agendamento);
-	void delete(Long id);
-	Optional<AgendamentoDTO> findById(Long id);
-	List<AgendamentoDTO> findAll();
+	AgendamentoDTO salvar(Agendamento agendamento);
+	AgendamentoDTO atualizar(Agendamento agendamento);
+	void excluir(Long id);
+	Optional<AgendamentoDTO> listarAgendamentoPorId(Long id);
+	List<AgendamentoDTO> listarAgendamentos();
+	List<AgendamentoDTO> listarAgendamentosPorBairro(Long idBairro);
 }

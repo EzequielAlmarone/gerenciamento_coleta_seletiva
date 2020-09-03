@@ -38,8 +38,8 @@ public class BairroController {
 	}
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("bairro", service.findById(id));
-		return "/bairro/cadastro_bairro";
+		model.addAttribute("bairro", service.findById(id).get());
+		return "bairro/cadastro_bairro";
 	}
 	@PostMapping("/editar")
 	public String editar(Bairro bairro, RedirectAttributes attr) {

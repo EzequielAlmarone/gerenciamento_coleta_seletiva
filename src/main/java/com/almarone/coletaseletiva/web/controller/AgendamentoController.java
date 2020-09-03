@@ -1,57 +1,75 @@
 package com.almarone.coletaseletiva.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.almarone.coletaseletiva.api.dto.AgendamentoDTO;
 import com.almarone.coletaseletiva.web.domain.Agendamento;
+import com.almarone.coletaseletiva.web.domain.Bairro;
 import com.almarone.coletaseletiva.web.services.AgendamentoService;
 
-
-
 @Controller
-@RequestMapping("/agendamento")
+@RequestMapping("/api/agendamentos")
 public class AgendamentoController {
 	@Autowired
 	private AgendamentoService service;
-
+	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Agendamento agendamento) {
 		return "agendamento/cadastro_agendamento";
 	}
-	
-	@GetMapping("/listar")
-	public String listar(ModelMap model) {
-		model.addAttribute("agendamentos", service.findAll());
-		return "agendamento/lista_agentamento";
-	}
-	@PostMapping("/salvar")
-	public String salvar(Agendamento agendamento, RedirectAttributes attr) {
-		service.save(agendamento);
-		attr.addFlashAttribute("success", "agendamento adicionado com sucesso!");
-		return "redirect:/agendamento/cadastrar";
-	}
-	@GetMapping("/editar/{id}")
-	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
-		model.addAttribute("agendamento", service.findById(id));
-		return "/agendamento/cadastro_agendamento";
-	}
-	@PostMapping("/editar")
-	public String editar(Agendamento agendamento, RedirectAttributes attr) {
-		service.update(agendamento);
-		attr.addFlashAttribute("success", "Agendamento alterado com sucesso");
-		return "redirect:/agendamento/listar";
-	}
-	@GetMapping("/excluir/{id}")
-	public String excluir(@PathVariable("id") Long id, ModelMap model) {
-		service.delete(id);
-		model.addAttribute("success", "Agendamento removido com sucesso");
-		return listar(model);
+
+	@PostMapping
+	public ResponseEntity salvar(@RequestBody Agendamento agendamento) {
+		try {
+			AgendamentoDTO agendamentoDTO = service.salvar(agendamento);
+			return new ResponseEntity(agendamentoDTO, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
+	@PutMapping("/{id}")
+	public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody Agendamento agendamento) {
+		return service.listarAgendamentoPorId(id).map(entity -> {
+			try {
+				agendamento.setId(entity.getId());
+				service.atualizar(agendamento);
+				return ResponseEntity.ok(agendamento);
+			} catch (Exception e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
+		}).orElseGet(()-> new ResponseEntity("Agendamento não encontrado na base de dados", HttpStatus.BAD_REQUEST));
+		
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity excluir(@PathVariable("id") Long id) {
+		return service.listarAgendamentoPorId(id).map(entidade -> {
+			service.excluir(id);
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}).orElseGet(()-> new ResponseEntity("Agendamento não encontrado na base de dados",
+				HttpStatus.BAD_REQUEST));
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<AgendamentoDTO>> listarAgendamentos(){
+		return ResponseEntity.ok(service.listarAgendamentos());
+	}
+
+	@GetMapping("/{idBairro}")
+	public ResponseEntity<List<AgendamentoDTO>> listarAgendamentoPorBairro(@PathVariable("idBairro") Long idBairro){
+	 return ResponseEntity.ok(service.listarAgendamentosPorBairro(idBairro));	
+	}
 }
