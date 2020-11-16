@@ -13,8 +13,8 @@ public class AgendamentoDTO {
 	
 	private Long id;
 	private String horario;
-	private DiaSemana diaSemana;
-	private TipoColeta tipoColeta;
+	private String diaSemana;
+	private String tipoColeta;
 	private Bairro bairro;
 
 	

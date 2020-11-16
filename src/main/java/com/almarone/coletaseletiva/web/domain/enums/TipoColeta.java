@@ -1,14 +1,18 @@
 package com.almarone.coletaseletiva.web.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
 public enum TipoColeta {
-
-	COLETASELETIVA(1, "Coleta seletiva"), COLETACOMUM(2, "Coleta comum");
-
+	@JsonProperty("Coleta Seletiva")
+	COLETASELETIVA(1, "Coleta Seletiva"),
+	@JsonProperty("Coleta Comum")
+	COLETACOMUM(2, "Coleta Comum");
+		
 	private int id;
-	private String descricao;
+	private String descricao;		
 }
