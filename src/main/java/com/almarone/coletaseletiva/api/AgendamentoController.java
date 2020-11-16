@@ -48,6 +48,7 @@ public class AgendamentoController {
 	
 	@PostMapping
 	public ResponseEntity salvar(@RequestBody Agendamento agendamento) {
+		
 		try {
 			AgendamentoDTO agendamentoDTO = service.salvar(agendamento);
 			return new ResponseEntity(agendamentoDTO, HttpStatus.CREATED);	
