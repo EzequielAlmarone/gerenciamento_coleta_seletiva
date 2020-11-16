@@ -23,17 +23,12 @@
 		<!-- DEPENDENCIAS DO SPRING-BOOT -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<!-- Banco de Dados -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
 		</dependency>
 
 		<dependency>
@@ -53,6 +48,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<!-- Banco de Dados -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+
+
 
 		<!-- ModelMapper -->
 		<dependency>
@@ -60,7 +63,7 @@
 			<artifactId>modelmapper</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		
+
 		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -68,38 +71,20 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Swagger -->
 		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>webjars-locator-core</artifactId>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.7.0</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>4.0.0</version>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.7.0</version>
+			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>open-iconic</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-			<version>3.3.1-1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>jquery-mask-plugin</artifactId>
-			<version>1.14.13</version>
-		</dependency>
-		<dependency>
-			<groupId>nz.net.ultraq.thymeleaf</groupId>
-			<artifactId>thymeleaf-layout-dialect</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+
 	</dependencies>
 
 	<build>

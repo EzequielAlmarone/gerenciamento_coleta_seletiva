@@ -39,7 +39,13 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 
 	@Override
 	public AgendamentoDTO atualizar(Agendamento agendamento) {
-		return AgendamentoDTO.create(agendamentoRepository.save(agendamento));
+		Optional<Agendamento> agendamentoComparado = agendamentoRepository.compararAgendamento(
+				agendamento.getBairro(), agendamento.getDiaSemana(), agendamento.getTipoColeta());
+		if(!agendamentoComparado.isPresent()) {
+			return AgendamentoDTO.create(agendamentoRepository.save(agendamento));
+		}else {
+			throw new RegraDeNegocioException("Essa coleta já foi agendada para esse dia nesse bairro, tente a opção de atualizar.");
+		}
 	}
 	
 	@Override

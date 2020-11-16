@@ -4,6 +4,8 @@ import org.modelmapper.ModelMapper;
 
 import com.almarone.coletaseletiva.web.domain.Bairro;
 
+import lombok.Data;
+@Data
 public class BairroDTO {
 	
 	private Long id;
@@ -13,20 +15,4 @@ public class BairroDTO {
 		ModelMapper modelMaper = new ModelMapper();
 		return modelMaper.map(bairro, BairroDTO.class);
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}	
 }

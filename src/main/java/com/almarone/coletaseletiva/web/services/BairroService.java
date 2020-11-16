@@ -8,11 +8,11 @@ import com.almarone.coletaseletiva.web.domain.Bairro;
 
 
 public interface BairroService{
-	Bairro save(Bairro bairro);
-	Bairro update(Bairro bairro);
-	void delete(Long id);
-	Optional<BairroDTO> findById(Long id);
-	List<BairroDTO> findAll();
+	BairroDTO salvar(Bairro bairro);
+	BairroDTO atualizar(Bairro bairro);
+	void excluir(Long id);
+	List<BairroDTO> listarBairros();
+	Optional<BairroDTO> listarBairroPorId(Long id);
 	
 	
 	// Regras de Negocio

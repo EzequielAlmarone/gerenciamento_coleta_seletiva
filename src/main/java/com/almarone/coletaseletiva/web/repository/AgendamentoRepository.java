@@ -23,8 +23,8 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long>{
 	
 	@Query (value = "select a.bairro, a.diaSemana, a.tipoColeta "
 			+ "from Agendamento a"
-			+ " where a.bairro = :bairro and diaSemana = :diaSemana"
-			+ " and tipoColeta = :tipoColeta")
+			+ " where a.bairro = :bairro and a.diaSemana = :diaSemana"
+			+ " and a.tipoColeta = :tipoColeta")
 	
 	Optional<Agendamento> compararAgendamento(
 			@Param("bairro") Bairro bairro,

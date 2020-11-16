@@ -19,30 +19,30 @@ public class BairroServiceImpl implements BairroService {
 	private BairroRepository repository;
 
 	@Override
-	public Bairro save(Bairro bairro) {
-		return repository.save(bairro);
-			
+	public BairroDTO salvar(Bairro bairro) {		
+		return BairroDTO.create(repository.save(bairro));
 	}
 
 	@Override
-	public Bairro update(Bairro bairro) {
-		return repository.save(bairro);
-		
+	public BairroDTO atualizar(Bairro bairro) {		
+		return BairroDTO.create(repository.save(bairro));
 	}
 
 	@Override
-	public void delete(Long id) {
-		repository.deleteById(id);
+	public void excluir(Long id) {
+		repository.deleteById(id);		
 	}
 
-	@Override @Transactional(readOnly = true)
-	public Optional<BairroDTO> findById(Long id) {
-		return repository.findById(id).map(BairroDTO::create);
-	}
-
-	@Override @Transactional(readOnly = true)
-	public List<BairroDTO> findAll() {
+	@Override
+	@Transactional(readOnly = true)
+	public List<BairroDTO> listarBairros() {
 		return repository.findAll().stream().map(BairroDTO::create).collect(Collectors.toList());
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Optional<BairroDTO> listarBairroPorId(Long id) {		
+		return repository.findById(id).map(BairroDTO::create);
 	}
 		
 	
