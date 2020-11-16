@@ -28,5 +28,4 @@ public class Agendamento {
 	@ManyToOne
 	@JoinColumn(name = "fk_bairro_id")
 	private Bairro bairro;
-
 }

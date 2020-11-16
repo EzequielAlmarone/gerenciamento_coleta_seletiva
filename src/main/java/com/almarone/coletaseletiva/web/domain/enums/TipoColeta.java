@@ -14,5 +14,5 @@ public enum TipoColeta {
 	COLETACOMUM(2, "Coleta Comum");
 		
 	private int id;
-	private String descricao;		
+	private String coleta;		
 }

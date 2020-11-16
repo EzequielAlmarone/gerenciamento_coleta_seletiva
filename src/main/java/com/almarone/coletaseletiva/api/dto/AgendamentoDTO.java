@@ -4,8 +4,6 @@ import org.modelmapper.ModelMapper;
 
 import com.almarone.coletaseletiva.web.domain.Agendamento;
 import com.almarone.coletaseletiva.web.domain.Bairro;
-import com.almarone.coletaseletiva.web.domain.enums.DiaSemana;
-import com.almarone.coletaseletiva.web.domain.enums.TipoColeta;
 
 import lombok.Data;
 @Data

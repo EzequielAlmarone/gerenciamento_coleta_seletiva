@@ -26,6 +26,6 @@ public enum DiaSemana {
 	SABADO(7, "Sábado");
 	
 	private int id;
-	private String descricao;
+	private String dia;
 		
 }
