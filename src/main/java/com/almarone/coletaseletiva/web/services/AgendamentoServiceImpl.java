@@ -31,7 +31,7 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 		agendamento.setBairro(bairro);
 		// verificar se tem agendamento salvo com as mesma informações
 		Optional<Agendamento> agendamentoComparado = agendamentoRepository.compararAgendamento(agendamento.getBairro(),
-				agendamento.getDiaSemana(), agendamento.getTipoColeta());
+				agendamento.getDiaSemana(), agendamento.getTipoColeta(), agendamento.getHorario());
 		if (!agendamentoComparado.isPresent()) {
 			return AgendamentoDTO.create(agendamentoRepository.save(agendamento));
 		} else {
@@ -48,7 +48,7 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 		agendamento.setBairro(bairro);
 
 		Optional<Agendamento> agendamentoComparado = agendamentoRepository.compararAgendamento(agendamento.getBairro(),
-				agendamento.getDiaSemana(), agendamento.getTipoColeta());
+				agendamento.getDiaSemana(), agendamento.getTipoColeta(), agendamento.getHorario());
 		if (!agendamentoComparado.isPresent()) {
 			return AgendamentoDTO.create(agendamentoRepository.save(agendamento));
 		} else {
