@@ -15,12 +15,6 @@ import com.almarone.coletaseletiva.web.domain.enums.TipoColeta;
 
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long>{
 	
-	/**
-	 * select bairro, dia_semana, tipo_coleta
-	 * from agendamento
-	 * where bairro = ? and dia_semana = ? and tipo_coleta = ?
-	 */
-	
 	@Query (value = "select a.bairro, a.diaSemana, a.tipoColeta "
 			+ "from Agendamento a"
 			+ " where a.bairro = :bairro and a.diaSemana = :diaSemana"
@@ -32,12 +26,5 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long>{
 			@Param("tipoColeta") TipoColeta tipoColeta,
 			@Param("horario") String horario);
 	
-	
-	/**
-	 * 
-	 * @param bairro
-	 * @return -> lista de agendamentos para o bairro consultado.
-	 */
-	List<Agendamento> findByBairro(Bairro bairro);
-	
+	List<Agendamento> findByBairro(Bairro bairro);	
 }

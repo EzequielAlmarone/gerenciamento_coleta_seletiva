@@ -20,7 +20,6 @@ import com.almarone.coletaseletiva.web.repository.BairroRepository;
 public class AgendamentoServiceImpl implements AgendamentoService {
 	@Autowired
 	private AgendamentoRepository agendamentoRepository;
-
 	@Autowired
 	private BairroRepository bairroRepository;
 
@@ -29,14 +28,17 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 		Bairro bairro = bairroRepository.findById(agendamento.getBairro().getId())
 				.orElseThrow(() -> new RegraDeNegocioException("Bairro não encontrado"));
 		agendamento.setBairro(bairro);
-		// verificar se tem agendamento salvo com as mesma informações
-		Optional<Agendamento> agendamentoComparado = agendamentoRepository.compararAgendamento(agendamento.getBairro(),
-				agendamento.getDiaSemana(), agendamento.getTipoColeta(), agendamento.getHorario());
+
+		Optional<Agendamento> agendamentoComparado = agendamentoRepository
+				.compararAgendamento(agendamento.getBairro(),
+				agendamento.getDiaSemana(), 
+				agendamento.getTipoColeta(), 
+				agendamento.getHorario());
 		if (!agendamentoComparado.isPresent()) {
 			return AgendamentoDTO.create(agendamentoRepository.save(agendamento));
 		} else {
 			throw new RegraDeNegocioException(
-					"Essa coleta já foi agendada para esse dia nesse bairro, tente a opção de atualizar.");
+				"Essa coleta já foi agendada para esse dia nesse bairro, tente a opção de atualizar.");
 		}
 	}
 
@@ -47,8 +49,11 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 				.orElseThrow(() -> new RegraDeNegocioException("Bairro não encontrado"));
 		agendamento.setBairro(bairro);
 
-		Optional<Agendamento> agendamentoComparado = agendamentoRepository.compararAgendamento(agendamento.getBairro(),
-				agendamento.getDiaSemana(), agendamento.getTipoColeta(), agendamento.getHorario());
+		Optional<Agendamento> agendamentoComparado = agendamentoRepository
+				.compararAgendamento(agendamento.getBairro(),
+				agendamento.getDiaSemana(), 
+				agendamento.getTipoColeta(), 
+				agendamento.getHorario());
 		if (!agendamentoComparado.isPresent()) {
 			return AgendamentoDTO.create(agendamentoRepository.save(agendamento));
 		} else {
@@ -81,5 +86,4 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 		return agendamentoRepository.findByBairro(bairro).stream().map(AgendamentoDTO::create)
 				.collect(Collectors.toList());
 	}
-
 }

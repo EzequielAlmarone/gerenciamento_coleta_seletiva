@@ -1,5 +1,7 @@
 package com.almarone.coletaseletiva.api.dto;
 
+import java.util.Date;
+
 import org.modelmapper.ModelMapper;
 
 import com.almarone.coletaseletiva.web.domain.Bairro;
@@ -13,7 +15,8 @@ public class DenunciaDTO {
 
 	private Long id;
 	private String descricao;
-	private String fotos;
+	private String foto;
+	private Date data;
 	private Bairro bairro;
 	private Usuario usuario;
 

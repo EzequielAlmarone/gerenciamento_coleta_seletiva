@@ -21,34 +21,31 @@ import com.almarone.coletaseletiva.web.services.AgendamentoService;
 
 @RestController
 @RequestMapping("/api/agendamentos")
-public class AgendamentoController {
-	
+public class AgendamentoController {	
 	@Autowired
 	private AgendamentoService service;
-
 	@GetMapping()
 	public ResponseEntity<List<AgendamentoDTO>> listarAgendamentos(){
-		return ResponseEntity.ok(service.listarAgendamentos());
-	}
-	
+		return ResponseEntity
+				.ok(service.listarAgendamentos());
+	}	
 	@GetMapping("/{id}")
 	public ResponseEntity listarAgendamentoPorId(@PathVariable("id") Long id){
 		Optional<AgendamentoDTO> dto = service.listarAgendamentoPorId(id);
 		if(!dto.isPresent()) {
-			return ResponseEntity.badRequest().body("Agendamento com Id informado não encontrado!");
+			return ResponseEntity.badRequest().body("Agendamento com Id "
+					+ "informado não encontrado!");
 		}else {
 			return ResponseEntity.ok(dto);
 		}
-	}
-	
+	}	
 	@GetMapping("/bairro/{idBairro}")
-	public ResponseEntity listarAgendamentoPorBairro(@PathVariable("idBairro") Long idBairro) {
+	public ResponseEntity listarAgendamentoPorBairro(@PathVariable("idBairro") 
+	Long idBairro) {
 		return ResponseEntity.ok(service.listarAgendamentosPorBairro(idBairro));	
 	}
-	
 	@PostMapping
-	public ResponseEntity salvar(@RequestBody Agendamento agendamento) {
-		
+	public ResponseEntity salvar(@RequestBody Agendamento agendamento) {	
 		try {
 			AgendamentoDTO agendamentoDTO = service.salvar(agendamento);
 			return new ResponseEntity(agendamentoDTO, HttpStatus.CREATED);	
@@ -56,9 +53,9 @@ public class AgendamentoController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}		
 	}
-	
 	@PutMapping("/{id}")
-	public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody Agendamento agendamento) {
+	public ResponseEntity atualizar(@PathVariable("id") Long id, 
+	@RequestBody Agendamento agendamento) {
 		return service.listarAgendamentoPorId(id).map(entity -> {
 			try {				
 				agendamento.setId(entity.getId());
@@ -67,14 +64,17 @@ public class AgendamentoController {
 			} catch (Exception e) {
 				return ResponseEntity.badRequest().body(e.getMessage());
 			}			
-		}).orElseGet(() -> new ResponseEntity("Agendamento não encontrado na base de dados", HttpStatus.BAD_REQUEST));
+		}).orElseGet(() -> new ResponseEntity("Agendamento não encontrado"
+				+ " na base de dados",
+				HttpStatus.BAD_REQUEST));
 	}
-	
 	@DeleteMapping("/{id}")
 	public ResponseEntity excluir(@PathVariable("id") Long id){						
 		return service.listarAgendamentoPorId(id).map(entidade -> {			
 			service.excluir(id);
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		}).orElseGet(() -> new ResponseEntity("Agendamento não encontrado na base de dados", HttpStatus.BAD_REQUEST));
+		}).orElseGet(() -> new ResponseEntity("Agendamento não encontrado"
+				+ " na base de dados", 
+				HttpStatus.BAD_REQUEST));
 	}
 }

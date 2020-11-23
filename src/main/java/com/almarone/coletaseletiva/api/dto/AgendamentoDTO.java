@@ -6,6 +6,7 @@ import com.almarone.coletaseletiva.web.domain.Agendamento;
 import com.almarone.coletaseletiva.web.domain.Bairro;
 
 import lombok.Data;
+
 @Data
 public class AgendamentoDTO {
 	
@@ -14,7 +15,6 @@ public class AgendamentoDTO {
 	private String diaSemana;
 	private String tipoColeta;
 	private Bairro bairro;
-
 	
 	public static AgendamentoDTO create(Agendamento agendamento) {
 		ModelMapper modelMaper = new ModelMapper();
