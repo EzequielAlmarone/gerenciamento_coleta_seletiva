@@ -1,8 +1,8 @@
 package com.almarone.coletaseletiva.web.domain;
 
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

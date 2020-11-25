@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,7 +44,7 @@ public class EducacaoAmbientalServiceImpl implements EducacaoAmbientalService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<EducacaoAmbientalDTO> listaEducacaoAmbiental() {
-		return repository.findAll().stream().map(EducacaoAmbientalDTO::create).collect(Collectors.toList());
+		return repository.findAll(Sort.by(Sort.Direction.DESC, "id")).stream().map(EducacaoAmbientalDTO::create).collect(Collectors.toList());
 	}
 
 	@Override

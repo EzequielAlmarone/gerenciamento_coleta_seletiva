@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,7 +54,7 @@ public class DenunciaServiceImpl implements DenunciaService {
 
 	@Override
 	public List<DenunciaDTO> listarDenuncias() {
-		return repository.findAll().stream().map(DenunciaDTO::create).collect(Collectors.toList());
+		return repository.findAll(Sort.by(Sort.Direction.DESC, "id")).stream().map(DenunciaDTO::create).collect(Collectors.toList());
 	}
 
 	@Override
