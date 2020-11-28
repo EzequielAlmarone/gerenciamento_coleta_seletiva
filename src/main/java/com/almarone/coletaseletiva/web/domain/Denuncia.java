@@ -12,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Data;
 
 @Entity
@@ -25,7 +23,6 @@ public class Denuncia {
 	@Lob
 	private String descricao;
 	private String foto;
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date data;
 	@ManyToOne
 	@JoinColumn(name = "fk_bairro_id")
