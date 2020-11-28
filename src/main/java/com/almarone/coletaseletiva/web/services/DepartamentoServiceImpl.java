@@ -21,6 +21,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Override
 	public DepartamentoDTO salvar(Departamento d) {
+		System.out.println(d);
 		return DepartamentoDTO.create(repository.save(d));
 	}
 

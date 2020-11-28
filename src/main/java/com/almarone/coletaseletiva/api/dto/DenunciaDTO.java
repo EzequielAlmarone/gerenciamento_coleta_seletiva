@@ -1,7 +1,9 @@
 package com.almarone.coletaseletiva.api.dto;
 
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import org.modelmapper.ModelMapper;
 
